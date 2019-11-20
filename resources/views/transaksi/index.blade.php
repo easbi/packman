@@ -37,8 +37,8 @@
           <tr>
            {{--  <th>ID</th> --}}
            <th>Nama Penerima</th>
+           <th>Kode Paket</th>
            <th>Jenis Diklat</th>
-           <th>Jumlah</th>
            <th>Kategori</th>
            <th>Jasa Pengirim</th>
            <th>Status</th>
@@ -50,8 +50,8 @@
         <tr>
           {{-- <td>{{$transaksi['id']}}</td> --}} 
           <td>{{$transaksi['nama_penerima']}}</td>
+          <td>{{$transaksi['no_paket']}}</td>
           <td>{{$transaksi['jenis_diklat']}}</td>
-          <td>{{$transaksi['jumlah']}}</td>
           <td>{{$transaksi['kategori']}}</td>
           <td>{{$transaksi['jasa_pengirim']}}</td>
           <td>{{$transaksi['status']}}</td>

@@ -36,7 +36,7 @@
 						<option value="Dokumen">Dokumen</option>
 						<option value="Elektronik">Elektronik</option>
 						<option value="Pakaian">Pakaian</option>
-						<option value="Lainnya">lainnya</option>
+						<option value="Lainnya">Lainnya</option>
 					</select>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 						<option value="JNE">JNE</option>
 						<option value="J&amp;T">J&amp;T</option>
 						<option value="Sicepat">Sicepat</option>
-						<option value="Lainnya">lainn</option>
+						<option value="Lainnya">Lainnya</option>
 					</select>
 				</div>
 			</div>

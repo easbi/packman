@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -39,10 +40,25 @@ class TransaksiController extends Controller
         $transaksi = new \App\Transaksi;
         $transaksi->nama_penerima = $request->get('nama_penerima');
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
-        $transaksi->jumlah = $request->get('jumlah');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->status = $request->get('status');
+
+        # start syntax to renumbering packet each month
+        $month = date('Y-m');
+        $noPaketMax = DB::table('transaksis')->where('created_at', 'LIKE', $month.'%')->max('no_paket');
+        if ($noPaketMax) {
+            $noPaketMax = substr($noPaketMax, 3, 5);
+        }
+        $noPaketMax++;
+        if ($noPaketMax < 10) {
+            $noPaketMax = '00'.$noPaketMax;
+        } elseif ($noPaketMax >= 10 && $noPaketMax < 100) {
+            $noPaketMax = '0'.$noPaketMax;
+        } 
+        $no_paket = date('m').$noPaketMax;        
+        $transaksi->no_paket = $no_paket;
+
         $transaksi->save();
 
         return redirect('transaksis')->with('sucsess', 'Data transaksi telah ditambahkan');
@@ -85,7 +101,6 @@ class TransaksiController extends Controller
         $transaksi = \App\Transaksi::find($id);
         $transaksi->nama_penerima = $request->get('nama_penerima');
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
-        $transaksi->jumlah = $request->get('jumlah');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->status = $request->get('status');
