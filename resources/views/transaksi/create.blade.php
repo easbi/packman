@@ -22,14 +22,6 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="form-group col-md-4">
-					<label for="jumlah">Jumlah :</label>
-					<input type="text" class="form-control" name="jumlah">
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
 					<label for="kategori">Kategori :</label>
 					<select class="form-control" name="kategori">
 						<option value="Makanan">Makanan</option>

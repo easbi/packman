@@ -1,10 +1,9 @@
 @extends('layout.main')
 @section('content')
 
-
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
-<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script> 
+<link rel="stylesheet" href="{{asset('css/jquery.dataTables.css')}}">
+<script type="text/javascript" charset="utf8" src="{{asset('js/jquery-3.3.1.js')}}"></script>
+<script type="text/javascript" charset="utf8" src="{{asset('js/jquery.dataTables.js')}}"></script>
 
  <div class="container">
       <br />

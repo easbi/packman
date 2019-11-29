@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('transaksis', 'TransaksiController');
+
+Route::get('/monitoring', 'TransaksiController@monitoring');

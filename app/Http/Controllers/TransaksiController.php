@@ -48,20 +48,23 @@ class TransaksiController extends Controller
         $month = date('Y-m');
         $noPaketMax = DB::table('transaksis')->where('created_at', 'LIKE', $month.'%')->max('no_paket');
         if ($noPaketMax) {
-            $noPaketMax = substr($noPaketMax, 3, 5);
+            $noPaketMax = substr($noPaketMax, 2, 4);
         }
         $noPaketMax++;
+
         if ($noPaketMax < 10) {
             $noPaketMax = '00'.$noPaketMax;
         } elseif ($noPaketMax >= 10 && $noPaketMax < 100) {
             $noPaketMax = '0'.$noPaketMax;
-        } 
+        } else {
+            $noPaketMax = $noPaketMax;
+        }
         $no_paket = date('m').$noPaketMax;        
         $transaksi->no_paket = $no_paket;
 
         $transaksi->save();
 
-        return redirect('transaksis')->with('sucsess', 'Data transaksi telah ditambahkan');
+        return redirect('transaksis/show')->with('sucsess', 'Data transaksi telah ditambahkan');
     }
 
     /**
@@ -106,7 +109,7 @@ class TransaksiController extends Controller
         $transaksi->status = $request->get('status');
         $transaksi->save();
 
-        return redirect('transaksis')->with('sucsess', 'Data transaksi telah ditambahkan');
+        return redirect('transaksis/show')->with('sucsess', 'Data transaksi telah ditambahkan');
     }
 
     /**
@@ -120,5 +123,12 @@ class TransaksiController extends Controller
         $transaksi = \App\Transaksi::find($id);
         $transaksi->delete();
         return redirect('transaksis')->with('success','Data transaksi telah dihapus');
+    }
+
+    public function monitoring()
+    {
+       $statusc = DB::table('transaksis')->select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
+       //dd(print_r(($statusc));
+       return view('transaksi.monitoring', compact('statusc'));
     }
 }
