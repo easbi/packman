@@ -15,8 +15,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        $transaksis = \App\Transaksi::orderBy('created_at', 'desc')->get();
-        return view('transaksi.index', compact('transaksis'));
+        return view('transaksi.index');
     }
 
     /**
@@ -26,7 +25,8 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        return view('transaksi.create');
+        $nama_status = DB::table('master_status_paket')->pluck('nama_status', 'id');
+        return view('transaksi.create', compact('nama_status'));
     }
 
     /**
@@ -42,6 +42,7 @@ class TransaksiController extends Controller
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
+        $transaksi->penerima = $request->get('penerima');
         $transaksi->status = $request->get('status');
 
         # start syntax to renumbering packet each month
@@ -75,7 +76,12 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-         $transaksis = \App\Transaksi::orderBy('created_at', 'desc')->get();
+         $transaksis = DB::table('transaksis')
+         ->join('master_status_paket', 'transaksis.status', '=', 'master_status_paket.id' )
+         ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
+         ->select('transaksis.*', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori')
+         ->get();
+         //dd($transaksis);
          return view('transaksi.show', compact('transaksis'));
     }
 
@@ -106,6 +112,7 @@ class TransaksiController extends Controller
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
+        $transaksi->penerima = $request->get('penerima');
         $transaksi->status = $request->get('status');
         $transaksi->save();
 
@@ -127,8 +134,10 @@ class TransaksiController extends Controller
 
     public function monitoring()
     {
-       $statusc = DB::table('transaksis')->select('status', DB::raw('count(*) as total'))->groupBy('status')->get();
-       //dd(print_r(($statusc));
-       return view('transaksi.monitoring', compact('statusc'));
+       $status1 = DB::table('transaksis')->select('status')->where('status', '=', 3)->count();
+       $status2 = DB::table('transaksis')->select('status')->where('status', '=', 1)->count();
+       $status3 = DB::table('transaksis')->select('status')->where('status', '=', 2)->count();
+       $statust = DB::table('transaksis')->select('status')->count();
+       return view('transaksi.monitoring', compact('status1', 'status2', 'status3', 'statust'));
     }
 }

@@ -41,8 +41,10 @@
 						<option value="TIKI" @if($transaksi->jasa_pengirim=="TIKI") selected @endif>TIKI</option>
 						<option value="JNE" @if($transaksi->jasa_pengirim=="JNE") selected @endif>JNE</option>
 						<option value="J&amp;T" @if($transaksi->jasa_pengirim=="J&amp;T") selected @endif>J&amp;T</option>
-						<option value="Sicepat" @if($transaksi->jasa_pengirim=="Sicepat") selected @endif>Sicepat</option>
-						<option value="Lainnya" @if($transaksi->jasa_pengirim=="Lainnya") selected @endif>lainn</option>
+						<option value="Sicepat" @if($transaksi->jasa_pengirim=="Sicepat") selected @endif>Sicepat</option>						
+						<option value="Lainnya" @if($transaksi->jasa_pengirim=="POS") selected @endif>POS</option>
+						<option value="Lainnya" @if($transaksi->jasa_pengirim=="Lainnya") selected @endif>Lainnya</option>						
+						<option value="Lainnya" @if($transaksi->jasa_pengirim=="POS") selected @endif>POS</option>
 					</select>
 				</div>
 			</div>
@@ -54,6 +56,21 @@
 						<option value="Diterima di Pos" @if($transaksi->status=="Diterima di Pos") selected @endif>Diterima di Pos</option>
 						<option value="Sudah Diterima Pemilik" @if($transaksi->status=="Sudah Diterima Pemilik") selected @endif>Sudah Diterima Pemilik</option>
 						<option value="Barang di Resepsionis" @if($transaksi->status=="Barang di Resepsionis") selected @endif>Barang di Resepsionis</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="form-group col-md-4">
+					<label for="penerima">Penerima Paket di POS :</label>
+					<select class="form-control" name="penerima">
+						<option value="Kadar Slamet" @if($transaksi->penerima=="Kadar Slamet") selected @endif>Kadar Slamet </option>
+						<option value="Supardi" @if($transaksi->penerima=="Supardi") selected @endif>Supardi</option>
+						<option value="Nartim" @if($transaksi->penerima=="Nartim") selected @endif>Nartim</option>
+						<option value="D. Moh Ikhsan" @if($transaksi->penerima=="D. Moh Ikhsan") selected @endif>D. Moh Ikhsan</option>
+						<option value="Eda" @if($transaksi->penerima=="Eda") selected @endif>Eda</option>
+						<option value="Windi" @if($transaksi->penerima=="Windit") selected @endif>Windi</option>
+						<option value="Dicky" @if($transaksi->penerima=="Dicky") selected @endif>Dicky</option>
 					</select>
 				</div>
 			</div>

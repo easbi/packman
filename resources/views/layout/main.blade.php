@@ -8,7 +8,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- awesone fonts css-->
     <link href="{{ asset('css/font-awesome.css')}}" rel="stylesheet" type="text/css">
     <!-- owl carousel css-->
@@ -29,9 +28,9 @@
                 class="bar1"></span> <span class="bar2"></span> <span class="bar3"></span></button>
         <div id="my-nav" class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/create') }}">Packet Entry</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/show') }}">Packet Table</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Beranda</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/create') }}">Input Paket</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/show') }}">Tabel Paket</a></li>
             </ul>
             {{-- <form class="form-inline my-2 my-lg-0">
                 <a href="#" class="btn btn-outline-dark my-2 my-sm-0 mr-3 text-uppercase">login as packman</a> 
