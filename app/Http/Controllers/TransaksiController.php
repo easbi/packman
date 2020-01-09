@@ -79,7 +79,9 @@ class TransaksiController extends Controller
          $transaksis = DB::table('transaksis')
          ->join('master_status_paket', 'transaksis.status', '=', 'master_status_paket.id' )
          ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
-         ->select('transaksis.*', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori')
+         ->join('master_jenis_penerima', 'transaksis.jenis_diklat', '=', 'master_jenis_penerima.id' )
+         ->join('master_jasa_pengiriman', 'transaksis.jasa_pengirim', '=', 'master_jasa_pengiriman.id' )
+         ->select('transaksis.*', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
          ->get();
          //dd($transaksis);
          return view('transaksi.show', compact('transaksis'));

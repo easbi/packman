@@ -37,9 +37,9 @@
           <td>{{$transaksi->id}}</td> 
           <td>{{$transaksi->nama_penerima}}</td>
           <td>{{$transaksi->no_paket}}</td>
-          <td>{{$transaksi->jenis_diklat}}</td>
+          <td>{{$transaksi->jenis_penerima}}</td>
           <td>{{$transaksi->nama_kategori}}</td>
-          <td>{{$transaksi->jasa_pengirim}}</td>
+          <td>{{$transaksi->nama_jasa_pengirim}}</td>
           <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->formatLocalized('%d-%b-%Y %H:%M') }} WIB</td>
           <td>{{$transaksi->nama_status}}</td>          
           <td>{{$transaksi->penerima}}</td>

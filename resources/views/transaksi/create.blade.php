@@ -12,29 +12,31 @@
 		<div class="form-group">
 			<label for="jenis_diklat">Kategori Penerima Paket :</label>
 			<select class="form-control" name="jenis_diklat">
-				<option value="Peserta Diklat">Peserta Diklat</option>
-				<option value="Pegawai">Pegawai</option>
+				<option value="2">Peserta Diklat</option>
+				<option value="1">Pegawai</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="kategori">Kategori Paket:</label>
 			<select class="form-control" name="kategori">
-				<option value="Makanan">Makanan</option>
-				<option value="Dokumen">Dokumen</option>
-				<option value="Elektronik">Elektronik</option>
-				<option value="Pakaian">Pakaian</option>
-				<option value="Lainnya">Lainnya</option>
+				<option value="" selected disabled>Pilih</option>
+				<option value="1">Makanan</option>
+				<option value="2">Dokumen</option>
+				<option value="3">Elektronik</option>
+				<option value="4">Pakaian</option>
+				<option value="5">Lainnya</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label for="jasa_pengirim">Jasa Pengirim :</label>
 			<select class="form-control" name="jasa_pengirim">
-				<option value="TIKI">TIKI</option>
-				<option value="JNE">JNE</option>
-				<option value="J&amp;T">J&amp;T</option>
-				<option value="Sicepat">Sicepat</option>
-				<option value="Lainnya">POS</option>
-				<option value="Lainnya">Lainnya</option>
+				<option value="" selected disabled>Pilih</option>
+				<option value="1">TIKI</option>
+				<option value="2">JNE</option>
+				<option value="3">J&amp;T</option>
+				<option value="4">Sicepat</option>
+				<option value="5">POS</option>
+				<option value="6">Lainnya</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -49,13 +51,16 @@
 		<div class="form-group">
 			<label for="penerima">Penerima Paket di Pos:</label>
 			<select class="form-control" name="penerima">
+				<option value="" selected disabled>Pilih</option>
 				<option value="Kadar Slamet ">Kadar Slamet </option>
+				<option value="Junaedi">Junaedi </option>
 				<option value="Supardi">Supardi</option>
 				<option value="Nartim">Nartim</option>
 				<option value="D. Moh Ikhsan">D. Moh Ikhsan </option>
 				<option value="Eda">Eda</option>
 				<option value="Windi">Windi</option>
 				<option value="Dicky">Dicky</option>
+				<option value="Eko S">Eko Saputro</option>
 			</select>
 		</div>
 		<div class="form-group">
