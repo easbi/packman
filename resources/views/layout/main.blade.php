@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-	Solution by GetTemplates.co
-	URL: https://gettemplates.co
+    Solution by GetTemplates.co
+    URL: https://gettemplates.co
 -->
 <html lang="en">
 <head>
@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <!-- custom CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <title>Packman</title>
     <style>
 

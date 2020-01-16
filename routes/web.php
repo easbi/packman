@@ -16,5 +16,8 @@ Route::get('/', function () {
 });
 
 Route::resource('transaksis', 'TransaksiController');
-
 Route::get('/monitoring', 'TransaksiController@monitoring');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('autocomplete', 'TransaksiController@autocomplete')->name('autocomplete');

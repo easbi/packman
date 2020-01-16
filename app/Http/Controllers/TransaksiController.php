@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
+use App\Item;
 
 class TransaksiController extends Controller
 {
@@ -33,6 +34,24 @@ class TransaksiController extends Controller
         return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima'));
     }
 
+    public function autocomplete(Request $request)
+    {
+        if($request->get('query'))
+        {
+          $query = $request->get('query');
+          $data = DB::table('master_pegawai')->where('nama_pegawai', 'LIKE', "%{$query}%")->get();
+          $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+          foreach($data as $row)
+          {
+             $output .= '
+             <li><a href="#">'.$row->nama_pegawai.'</a></li>
+             ';
+         }
+         $output .= '</ul>';
+         echo $output;
+     }
+ }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,7 +67,6 @@ class TransaksiController extends Controller
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
-        $transaksi->jumlah = 1;
 
         # start syntax to renumbering packet each month
         $month = date('Y-m');
@@ -81,17 +99,17 @@ class TransaksiController extends Controller
      */
     public function show($id)
     {
-         $transaksis = DB::table('transaksis')
-         ->join('master_status_paket', 'transaksis.status', '=', 'master_status_paket.id' )
-         ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
-         ->join('master_jenis_penerima', 'transaksis.jenis_diklat', '=', 'master_jenis_penerima.id' )
-         ->join('master_jasa_pengiriman', 'transaksis.jasa_pengirim', '=', 'master_jasa_pengiriman.id' )
-         ->join('master_petugas', 'transaksis.petugas', '=', 'master_petugas.id' )
-         ->select('transaksis.*', 'master_petugas.nama_petugas', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
-         ->get();
+       $transaksis = DB::table('transaksis')
+       ->join('master_status_paket', 'transaksis.status', '=', 'master_status_paket.id' )
+       ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
+       ->join('master_jenis_penerima', 'transaksis.jenis_diklat', '=', 'master_jenis_penerima.id' )
+       ->join('master_jasa_pengiriman', 'transaksis.jasa_pengirim', '=', 'master_jasa_pengiriman.id' )
+       ->join('master_petugas', 'transaksis.petugas', '=', 'master_petugas.id' )
+       ->select('transaksis.*', 'master_petugas.nama_petugas', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
+       ->get();
          //dd($transaksis);
-         return view('transaksi.show', compact('transaksis'));
-    }
+       return view('transaksi.show', compact('transaksis'));
+   }
 
     /**
      * Show the form for editing the specified resource.
@@ -142,10 +160,10 @@ class TransaksiController extends Controller
 
     public function monitoring()
     {
-       $status1 = DB::table('transaksis')->select('status')->where('status', '=', 3)->count();
-       $status2 = DB::table('transaksis')->select('status')->where('status', '=', 1)->count();
-       $status3 = DB::table('transaksis')->select('status')->where('status', '=', 2)->count();
-       $statust = DB::table('transaksis')->select('status')->count();
-       return view('transaksi.monitoring', compact('status1', 'status2', 'status3', 'statust'));
-    }
+     $status1 = DB::table('transaksis')->select('status')->where('status', '=', 3)->count();
+     $status2 = DB::table('transaksis')->select('status')->where('status', '=', 1)->count();
+     $status3 = DB::table('transaksis')->select('status')->where('status', '=', 2)->count();
+     $statust = DB::table('transaksis')->select('status')->count();
+     return view('transaksi.monitoring', compact('status1', 'status2', 'status3', 'statust'));
+ }
 }
