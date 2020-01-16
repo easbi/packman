@@ -1,76 +1,70 @@
 @extends('layout.main')
 @section('content')
 
-	<div class="container">
-		<h2>Edit transaksi</h2><br/>
-		<form method="post" action="{{action('TransaksiController@update', $id)}}" enctype="multipart/form-data">
-			<input type="hidden" name="_method" value="PUT">
-    		<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="nama_penerima">Nama Penerima:</label>
-					<input type="text" class="form-control" name="nama_penerima" value="{{ $transaksi->nama_penerima}}">
-				</div>
+<div class="container">
+	<h2>Edit transaksi</h2><br/>
+	<form method="post" action="{{action('TransaksiController@update', $id)}}" enctype="multipart/form-data">
+		<input type="hidden" name="_method" value="PUT">
+		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="nama_penerima">Nama Penerima:</label>
+				<input type="text" class="form-control" name="nama_penerima" value="{{ $transaksi->nama_penerima }}">
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="jenis_diklat">Jenis Diklat :</label>
-					<input type="text" class="form-control" name="jenis_diklat" value="{{ $transaksi->jenis_diklat}}">
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="jenis_diklat">Jenis Diklat :</label>
+				<select class="form-control" name="jenis_diklat">
+					@foreach($jenis_penerima as $jenis_penerima)
+						<option value={{$jenis_penerima->id }} {{$transaksi->jenis_diklat == $jenis_penerima->id ? 'selected="selected"' : ''}}>{{$jenis_penerima->jenis_penerima}}</option>						
+					@endforeach
+			</select>
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="kategori">Kategori :</label>
-					<select class="form-control" name="kategori">
-						<option value="Makanan"  @if($transaksi->kategori=="Makanan") selected @endif>Makanan</option>
-						<option value="Dokumen"  @if($transaksi->kategori=="Dokumen") selected @endif>Dokumen</option>
-						<option value="Elektronik"  @if($transaksi->kategori=="Elektronik") selected @endif>Elektronik</option>
-						<option value="Pakaian"  @if($transaksi->kategori=="Pakaian") selected @endif>Pakaian</option>
-						<option value="Lainnya"  @if($transaksi->kategori=="Lainnya") selected @endif>lainnya</option>
-					</select>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="kategori">Kategori :</label>
+				<select class="form-control" name="kategori">
+					@foreach($kategori as $kt)
+						<option value={{ $kt->id }}  @if($transaksi->kategori==$kt->id) selected @endif>{{ $kt->nama_kategori }}</option>
+					@endforeach
+				</select>
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="jasa_pengirim">Jasa Pengirim :</label>
-					<select class="form-control" name="jasa_pengirim">
-						<option value="TIKI" @if($transaksi->jasa_pengirim=="TIKI") selected @endif>TIKI</option>
-						<option value="JNE" @if($transaksi->jasa_pengirim=="JNE") selected @endif>JNE</option>
-						<option value="J&amp;T" @if($transaksi->jasa_pengirim=="J&amp;T") selected @endif>J&amp;T</option>
-						<option value="Sicepat" @if($transaksi->jasa_pengirim=="Sicepat") selected @endif>Sicepat</option>						
-						<option value="Lainnya" @if($transaksi->jasa_pengirim=="POS") selected @endif>POS</option>
-						<option value="Lainnya" @if($transaksi->jasa_pengirim=="Lainnya") selected @endif>Lainnya</option>						
-						<option value="Lainnya" @if($transaksi->jasa_pengirim=="POS") selected @endif>POS</option>
-					</select>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="jasa_pengirim">Jasa Pengirim :</label>
+				<select class="form-control" name="jasa_pengirim">
+					@foreach($jasa_pengirim as $jp)
+						<option value={{ $jp->id }} @if($transaksi->jasa_pengirim==$jp->id) selected @endif>{{ $jp->nama_jasa_pengirim }}</option>
+					@endforeach
+				</select>
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="status">Status :</label>
-					<select class="form-control" name="status">
-						<option value="Diterima di Pos" @if($transaksi->status=="Diterima di Pos") selected @endif>Diterima di Pos</option>
-						<option value="Sudah Diterima Pemilik" @if($transaksi->status=="Sudah Diterima Pemilik") selected @endif>Sudah Diterima Pemilik</option>
-						<option value="Barang di Resepsionis" @if($transaksi->status=="Barang di Resepsionis") selected @endif>Barang di Resepsionis</option>
-					</select>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="status">Status : </label>
+				<select class="form-control" name="status">
+					@foreach($status as $st)
+						<option value={{$st->id}} @if($transaksi->status==$st->id) selected @endif>{{$st->nama_status}}</option>
+					@endforeach
+				</select>
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="form-group col-md-4">
-					<label for="penerima">Penerima Paket di POS :</label>
-					<select class="form-control" name="penerima">
-						<option value="Kadar Slamet" @if($transaksi->penerima=="Kadar Slamet") selected @endif>Kadar Slamet </option>
-						<option value="Supardi" @if($transaksi->penerima=="Supardi") selected @endif>Supardi</option>
-						<option value="Nartim" @if($transaksi->penerima=="Nartim") selected @endif>Nartim</option>
-						<option value="D. Moh Ikhsan" @if($transaksi->penerima=="D. Moh Ikhsan") selected @endif>D. Moh Ikhsan</option>
-						<option value="Eda" @if($transaksi->penerima=="Eda") selected @endif>Eda</option>
-						<option value="Windi" @if($transaksi->penerima=="Windit") selected @endif>Windi</option>
-						<option value="Dicky" @if($transaksi->penerima=="Dicky") selected @endif>Dicky</option>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="form-group col-md-4">
+				<label for="penerima">Penerima Paket di POS :</label>
+				<select class="form-control" name="penerima">
+					@foreach($nama_petugas as $np)
+						<option value={{$np->id}} @if($transaksi->petugas==$np->id) selected @endif>{{$np->nama_petugas}}</option>
+					@endforeach
 					</select>
 				</div>
 			</div>
@@ -83,4 +77,4 @@
 		</form>
 	</div>
 
-@endsection
+	@endsection

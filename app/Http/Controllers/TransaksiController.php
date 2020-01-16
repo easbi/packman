@@ -67,6 +67,7 @@ class TransaksiController extends Controller
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
+        $transaksi->jumlah = 1;
 
         # start syntax to renumbering packet each month
         $month = date('Y-m');
@@ -120,8 +121,17 @@ class TransaksiController extends Controller
     public function edit($id)
     {
         //Edit transaksi data
-        $transaksi = \App\Transaksi::find($id);
-        return view('transaksi.edit', compact('transaksi','id'));
+        $jenis_penerima = DB::table('master_jenis_penerima')->get();
+        $status = DB::table('master_status_paket')->get();
+        $kategori = DB::table('master_kategori_paket')->get();
+        $jasa_pengirim = DB::table('master_jasa_pengiriman')->get();
+        $nama_petugas = DB::table('master_petugas')->get();
+
+        $transaksi = DB::table('transaksis')
+        ->where('transaksis.id', $id)
+        ->first();
+        //dd($transaksis);
+        return view('transaksi.edit', compact('transaksi','id', 'jenis_penerima', 'status', 'kategori', 'jasa_pengirim', 'nama_petugas'));
     }
 
     /**
