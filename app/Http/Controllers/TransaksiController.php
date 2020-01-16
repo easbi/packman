@@ -26,7 +26,11 @@ class TransaksiController extends Controller
     public function create()
     {
         $nama_status = DB::table('master_status_paket')->pluck('nama_status', 'id');
-        return view('transaksi.create', compact('nama_status'));
+        $nama_petugas = DB::table('master_petugas')->pluck('nama_petugas', 'id');
+        $jasa_pengirim = DB::table('master_jasa_pengiriman')->pluck('nama_jasa_pengirim', 'id');
+        $kategori = DB::table('master_kategori_paket')->pluck('nama_kategori', 'id');
+        $jenis_penerima = DB::table('master_jenis_penerima')->pluck('jenis_penerima', 'id');
+        return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima'));
     }
 
     /**
@@ -42,8 +46,9 @@ class TransaksiController extends Controller
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
-        $transaksi->penerima = $request->get('penerima');
+        $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
+        $transaksi->jumlah = 1;
 
         # start syntax to renumbering packet each month
         $month = date('Y-m');
@@ -81,7 +86,8 @@ class TransaksiController extends Controller
          ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
          ->join('master_jenis_penerima', 'transaksis.jenis_diklat', '=', 'master_jenis_penerima.id' )
          ->join('master_jasa_pengiriman', 'transaksis.jasa_pengirim', '=', 'master_jasa_pengiriman.id' )
-         ->select('transaksis.*', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
+         ->join('master_petugas', 'transaksis.petugas', '=', 'master_petugas.id' )
+         ->select('transaksis.*', 'master_petugas.nama_petugas', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
          ->get();
          //dd($transaksis);
          return view('transaksi.show', compact('transaksis'));
@@ -114,7 +120,7 @@ class TransaksiController extends Controller
         $transaksi->jenis_diklat = $request->get('jenis_diklat');
         $transaksi->kategori = $request->get('kategori');
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
-        $transaksi->penerima = $request->get('penerima');
+        $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
         $transaksi->save();
 

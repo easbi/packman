@@ -42,7 +42,7 @@
           <td>{{$transaksi->nama_jasa_pengirim}}</td>
           <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->formatLocalized('%d-%b-%Y %H:%M') }} WIB</td>
           <td>{{$transaksi->nama_status}}</td>          
-          <td>{{$transaksi->penerima}}</td>
+          <td>{{$transaksi->nama_petugas}}</td>
           <td><a href="{{ action('TransaksiController@edit', $transaksi->id) }}" class="btn btn-warning">Edit</a></td>
         </tr>
         @endforeach
