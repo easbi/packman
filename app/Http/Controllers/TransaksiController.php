@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use App\Item;
+use App\Pegawai;
 
 class TransaksiController extends Controller
 {
@@ -31,24 +32,19 @@ class TransaksiController extends Controller
         $jasa_pengirim = DB::table('master_jasa_pengiriman')->pluck('nama_jasa_pengirim', 'id');
         $kategori = DB::table('master_kategori_paket')->pluck('nama_kategori', 'id');
         $jenis_penerima = DB::table('master_jenis_penerima')->pluck('jenis_penerima', 'id');
-        return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima'));
+
+        $pegawai = DB::table('master_pegawai')->pluck('nama_pegawai', 'id');
+        return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima', 'pegawai'));
     }
 
     public function autocomplete(Request $request)
     {
-        if($request->get('query'))
+        if($request->get('term'))
         {
-          $query = $request->get('query');
-          $data = DB::table('master_pegawai')->where('nama_pegawai', 'LIKE', "%{$query}%")->get();
-          $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
-          foreach($data as $row)
-          {
-             $output .= '
-             <li><a href="#">'.$row->nama_pegawai.'</a></li>
-             ';
-         }
-         $output .= '</ul>';
-         echo $output;
+          $search = $request->get('term');
+          $result  = Pegawai::where('nama_pegawai', 'LIKE', '%'. $search. '%')->get();
+          //dd($query);
+          return response()->json($result);
      }
  }
 
@@ -67,7 +63,6 @@ class TransaksiController extends Controller
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
-        $transaksi->jumlah = 1;
 
         # start syntax to renumbering packet each month
         $month = date('Y-m');

@@ -5,11 +5,10 @@
 	<center><h2>Tambah Paket Baru</h2><br/></center>
 	<form method="post" action="{{url('transaksis')}}" enctype="multipart/form-data">
 		{{ csrf_field() }}
+		
 		<div class="form-group">
 			<label>Nama Penerima:</label>
 			<input type="text" class="form-control" name="nama_penerima" id="nama_penerima">
-			<div id="countryList">
-			</div>
 		</div>
 		<div class="form-group">
 			<label for="jenis_diklat">Kategori Penerima Paket :</label>
@@ -62,33 +61,30 @@
 	</div>
 </form>
 </div>
-
-<script>
-$(document).ready(function(){
-
- $('#nama_penerima').keyup(function(){ 
-        var query = $(this).val();
-        if(query != '')
-        {
-         var _token = $('input[name="_token"]').val();
-         $.ajax({
-          url:"{{ route('autocomplete') }}",
-          method:"POST",
-          data:{query:query, _token:_token},
-          success:function(data){
-           $('#countryList').fadeIn();  
-                    $('#countryList').html(data);
-          }
-         });
-        }
-    });
-
-    $(document).on('click', 'li', function(){  
-        $('#nama_penerima').val($(this).text());  
-        $('#countryList').fadeOut();  
-    });  
-
-});
-</script>
-
 @endsection
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+	$( "#nama_penerima" ).autocomplete({		
+		source: function(request, response) {
+			$.ajax({
+				url: "{{url('autocomplete')}}",
+				data: {
+					term : request.term
+				},
+				dataType: "json",
+				success: function(data){
+					var resp = $.map(data,function(obj){
+		                    //console.log(obj.city_name);
+		                    return obj.nama_pegawai;
+		                }); 					
+					response(resp);
+				}
+			});
+		},
+		minLength: 1
+	});
+});		 
+</script> 
+@endpush

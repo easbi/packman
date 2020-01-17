@@ -1,10 +1,5 @@
 @extends('layout.main')
 @section('content')
-
-<link rel="stylesheet" href="{{asset('css/jquery.dataTables.css')}}">
-<script type="text/javascript" charset="utf8" src="{{asset('js/jquery-3.3.1.js')}}"></script>
-<script type="text/javascript" charset="utf8" src="{{asset('js/jquery.dataTables.js')}}"></script>
-
  <div class="container">
       <br />
       @if (\Session::has('success'))
@@ -41,8 +36,7 @@
           <td>{{$transaksi->nama_kategori}}</td>
           <td>{{$transaksi->nama_jasa_pengirim}}</td>
           <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->formatLocalized('%d-%b-%Y %H:%M') }} WIB</td>
-          <td>{{$transaksi->nama_status}}</td>
-          <td>{{$transaksi->nama_penerima}}</td>
+          <td>{{$transaksi->nama_status}}</td>          
           <td>{{$transaksi->nama_petugas}}</td>
           <td><a href="{{ action('TransaksiController@edit', $transaksi->id) }}" class="btn btn-warning">Edit</a></td>
         </tr>
@@ -51,7 +45,12 @@
     </table>
   </div>
 
-  <script type="text/javascript">
+  
+
+@endsection
+
+@push('scripts')
+<script type="text/javascript">
   $(document).ready(function() {
       $('#table_id').DataTable({
         "order": [[ 0, "desc" ]],
@@ -63,5 +62,4 @@
       });
   });
   </script>
-
-@endsection
+@endpush
