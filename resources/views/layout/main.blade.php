@@ -31,7 +31,7 @@
                 <div id="my-nav" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/monitoring') }}">Monitoring</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/monitoring') }}">Monitoring (alpha)</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/create') }}">Input Paket</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/show') }}">Tabel Paket</a></li>
                     </ul>
