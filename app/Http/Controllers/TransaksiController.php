@@ -63,6 +63,7 @@ class TransaksiController extends Controller
         $transaksi->jasa_pengirim = $request->get('jasa_pengirim');
         $transaksi->petugas = $request->get('penerima');
         $transaksi->status = $request->get('status');
+        $transaksi->jumlah = 1;
 
         # start syntax to renumbering packet each month
         $month = date('Y-m');
@@ -108,6 +109,27 @@ class TransaksiController extends Controller
    }
 
     /**
+     * Display the specified resource base on status packet.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function rekapstatus($status)
+    {
+       $transaksis = DB::table('transaksis')
+       ->where('status', $status)
+       ->join('master_status_paket', 'transaksis.status', '=', 'master_status_paket.id' )
+       ->join('master_kategori_paket', 'transaksis.kategori', '=', 'master_kategori_paket.id' )
+       ->join('master_jenis_penerima', 'transaksis.jenis_diklat', '=', 'master_jenis_penerima.id' )
+       ->join('master_jasa_pengiriman', 'transaksis.jasa_pengirim', '=', 'master_jasa_pengiriman.id' )
+       ->join('master_petugas', 'transaksis.petugas', '=', 'master_petugas.id' )
+       ->select('transaksis.*', 'master_petugas.nama_petugas', 'master_status_paket.nama_status', 'master_kategori_paket.nama_kategori', 'master_jenis_penerima.jenis_penerima', 'master_jasa_pengiriman.nama_jasa_pengirim')
+       ->get();
+
+       return view('transaksi.rekapstatus', compact('transaksis', 'status'));
+   }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -125,7 +147,7 @@ class TransaksiController extends Controller
         $transaksi = DB::table('transaksis')
         ->where('transaksis.id', $id)
         ->first();
-        //dd($transaksis);
+        //dd($transaksi);
         return view('transaksi.edit', compact('transaksi','id', 'jenis_penerima', 'status', 'kategori', 'jasa_pengirim', 'nama_petugas'));
     }
 
@@ -170,5 +192,14 @@ class TransaksiController extends Controller
      $status3 = DB::table('transaksis')->select('status')->where('status', '=', 2)->count();
      $statust = DB::table('transaksis')->select('status')->count();
      return view('transaksi.monitoring', compact('status1', 'status2', 'status3', 'statust'));
- }
+    }
+
+    public function getDistinctMY()
+    {
+        $MY = DB::table('transaksis')->select(DB::raw('YEAR(created_at) year, MONTH(created_at) month'))
+        ->groupby('year','month')
+        ->get();
+        
+        dd($MY);
+    }
 }

@@ -11,13 +11,18 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('transaksis', 'TransaksiController');
-Route::get('/monitoring', 'TransaksiController@monitoring');
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('autocomplete', 'TransaksiController@autocomplete')->name('autocomplete');
+Route::get('getDistinctMY', 'TransaksiController@getDistinctMY');
+Route::get('transaksis/rekapstatus/{status}', 'TransaksiController@rekapstatus');
+Route::resource('transaksis', 'TransaksiController');;
+
+Route::get('/monitoring', 'TransaksiController@monitoring');
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

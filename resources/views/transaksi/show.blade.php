@@ -7,6 +7,8 @@
         <p>{{ \Session::get('success') }}</p>
       </div><br />
       @endif
+
+
       <table id="table_id" class="display">
         <thead>
           <tr>
@@ -38,11 +40,20 @@
           <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->formatLocalized('%d-%b-%Y %H:%M') }} WIB</td>
           <td>{{$transaksi->nama_status}}</td>          
           <td>{{$transaksi->nama_petugas}}</td>
-          <td><a href="{{ action('TransaksiController@edit', $transaksi->id) }}" class="btn btn-warning">Edit</a></td>
+          <td>
+            <a href="{{ action('TransaksiController@edit', $transaksi->id) }}" class="btn btn-warning">Edit</a>
+            <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="post">
+              {{ csrf_field() }}
+              {{ method_field('DELETE') }}
+              <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Yakin ingin menghapus data?')">Hapus</button>
+            </form>
+          </td>
         </tr>
         @endforeach
       </tbody>
     </table>
+    <br>
+    <p>Lihat Berdasarkan Waktu</p>
   </div>
 
   
