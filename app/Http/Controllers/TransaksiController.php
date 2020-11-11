@@ -33,8 +33,8 @@ class TransaksiController extends Controller
         $kategori = DB::table('master_kategori_paket')->pluck('nama_kategori', 'id');
         $jenis_penerima = DB::table('master_jenis_penerima')->pluck('jenis_penerima', 'id');
 
-        $pegawai = DB::table('master_pegawai')->pluck('nama_pegawai', 'id');
-        return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima', 'pegawai'));
+        //$pegawai = DB::table('master_pegawai')->pluck('nama_pegawai', 'id');
+        return view('transaksi.create', compact('nama_status', 'nama_petugas', 'jasa_pengirim', 'kategori', 'jenis_penerima'));
     }
 
     public function autocomplete(Request $request)
@@ -45,8 +45,8 @@ class TransaksiController extends Controller
           $result  = Pegawai::where('nama_pegawai', 'LIKE', '%'. $search. '%')->get();
           //dd($query);
           return response()->json($result);
-     }
- }
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
