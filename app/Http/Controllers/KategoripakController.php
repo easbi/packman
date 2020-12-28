@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kategoripaket;
 use Illuminate\Http\Request;
+use Auth;
 
 class KategoripakController extends Controller
 {

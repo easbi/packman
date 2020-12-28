@@ -7,9 +7,14 @@ use yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
 use App\Item;
 use App\Pegawai;
+use Auth;
 
 class TransaksiController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -30,14 +30,29 @@
                 class="bar1"></span> <span class="bar2"></span> <span class="bar3"></span></button>
                 <div id="my-nav" class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/monitoring') }}">Monitorings</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/create') }}">Input Paket</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/show') }}">Tabel Paket</a></li>
+                        @guest
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Beranda</a></li>
+                        @else
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis') }}">Beranda</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/monitoring') }}">Monitorings</a></li>
+                            @if( Auth::user()->role == 1)
+                                <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/create') }}">Input Paket</a></li>
+                            @endif
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/transaksis/show') }}">Tabel Paket</a></li>
+                        @endguest
                     </ul>
-            {{-- <form class="form-inline my-2 my-lg-0">
-                <a href="#" class="btn btn-outline-dark my-2 my-sm-0 mr-3 text-uppercase">login as packman</a> 
-            </form> --}}
+                    @guest
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                        </ul>
+                    @else
+                        <form class="form-inline my-2 my-lg-0">
+                            <a href="{{ route('logout') }}" class="btn btn-outline-dark my-2 my-sm-0 mr-3 text-uppercase">{{ Auth::user()->name}}</a> 
+                        </form>
+                    @endguest
+
+            
         </div>
     </div>
 </nav>
