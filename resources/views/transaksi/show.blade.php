@@ -22,8 +22,8 @@
            <th>Tanggal Diterima</th>
            {{-- <th>Tanggal Perubahan Terakhir</th> --}}
            <th>Status</th>
-           <th>Penerima</th>
-           @if( Auth::user()->name == 1)
+           <th>Penerimas</th>
+           @if( Auth::user()->role == 1)
             <th>Edit</th>
            @endif
          </tr>
@@ -42,7 +42,7 @@
           <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->formatLocalized('%d-%b-%Y %H:%M') }} WIB</td>
           <td>{{$transaksi->nama_status}}</td>          
           <td>{{$transaksi->nama_petugas}}</td>
-          @if( Auth::user()->name == 1)
+          @if( Auth::user()->role == 1)
           <td>
             <a href="{{ action('TransaksiController@edit', $transaksi->id) }}" class="btn btn-warning">Edit</a>
             <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="post">
